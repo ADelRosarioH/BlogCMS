@@ -30,6 +30,8 @@ public static class JwtServiceCollection
                 {
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
