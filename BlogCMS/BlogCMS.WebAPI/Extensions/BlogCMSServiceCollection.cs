@@ -12,6 +12,7 @@ public static class BlogCMSServiceCollection
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IPostService, PostService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<ICommentService, CommentService>();
         return services;
     }
 }
