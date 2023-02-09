@@ -35,12 +35,28 @@ public static class Handlers
 
     public static void CanApprovePostPolicyHandler(AuthorizationPolicyBuilder builder)
     {
-        builder.RequireAssertion(context => context.User.IsInRole(Roles.Editor));
+        builder.RequireAssertion(async context =>
+        {
+            var postService = GetPostService(context);
+            var postId = GetPostId(context);
+            
+            var currentPost = await postService.GetPostById(postId);
+
+            return context.User.IsInRole(Roles.Editor) && currentPost.Status == PostStatus.Pending;
+        });
     }
 
     public static void CanRejectPostPolicyHandler(AuthorizationPolicyBuilder builder)
     {
-        builder.RequireAssertion(context => context.User.IsInRole(Roles.Editor));
+        builder.RequireAssertion(async context =>
+        {
+            var postService = GetPostService(context);
+            var postId = GetPostId(context);
+            
+            var currentPost = await postService.GetPostById(postId);
+
+            return context.User.IsInRole(Roles.Editor) && currentPost.Status == PostStatus.Pending;
+        });
     }
     
     public static void CanSubmitPostPolicyHandler(AuthorizationPolicyBuilder builder)
