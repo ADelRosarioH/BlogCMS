@@ -1,26 +1,31 @@
+using BlogCMS.Infrastructure.Entities;
+using BlogCMS.Infrastructure.Helpers.Constants;
 using BlogCMS.Infrastructure.Interfaces;
-using BlogCMS.Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace BlogCMS.Infrastructure.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly UserManager<IdentityUser<Guid>> _userManager;
+    private readonly UserManager<BlogUser> _userManager;
 
-    public AuthService(UserManager<IdentityUser<Guid>> userManager)
+    public AuthService(UserManager<BlogUser> userManager)
     {
         _userManager = userManager;
     }
     
-    public async Task<IdentityUser<Guid>?> RegisterNewUser(string userName, string email, string password)
+    public async Task<BlogUser?> RegisterNewUser(string userName, string email, string password)
     {
-        var result = await _userManager.CreateAsync(new IdentityUser<Guid>()
+        var result = await _userManager.CreateAsync(new BlogUser
         {
             UserName = userName,
             Email = email,
         }, password);
 
+        var newUser = await _userManager.FindByNameAsync(userName);
+
+        await _userManager.AddToRoleAsync(newUser, Roles.Writer);
+        
         return result == IdentityResult.Success
             ? await _userManager.FindByNameAsync(userName)
             : null;

@@ -14,7 +14,7 @@ public static class JwtServiceCollection
         
         var secretKey = settings["SecretKey"];
 
-        if (secretKey is null || secretKey.IsNullOrEmpty())
+        if (secretKey is null || string.IsNullOrEmpty(secretKey))
         {
             throw new Exception( "SecrectKey can't not be null or empty.");
         }

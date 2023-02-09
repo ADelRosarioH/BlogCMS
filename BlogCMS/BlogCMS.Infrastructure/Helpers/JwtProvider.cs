@@ -1,10 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using BlogCMS.Infrastructure.Entities;
 using BlogCMS.Infrastructure.Interfaces;
 using BlogCMS.Infrastructure.Settings;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,9 +13,9 @@ namespace BlogCMS.Infrastructure.Helpers;
 public class JwtProvider : IJwtProvider
 {
     private readonly JwtSettings _jwtSettings;
-    private readonly UserManager<IdentityUser<Guid>> _userManager;
+    private readonly UserManager<BlogUser> _userManager;
 
-    public JwtProvider(IOptions<JwtSettings> jwtSettings, UserManager<IdentityUser<Guid>> userManager)
+    public JwtProvider(IOptions<JwtSettings> jwtSettings, UserManager<BlogUser> userManager)
     {
         _jwtSettings = jwtSettings.Value;
         _userManager = userManager;
