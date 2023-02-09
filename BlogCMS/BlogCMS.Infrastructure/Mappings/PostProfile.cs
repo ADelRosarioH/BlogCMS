@@ -20,8 +20,10 @@ public class PostProfile : Profile
             .ForMember(dest => dest.StatusDescription, opt => opt.MapFrom(src => src.Status.ToString()))
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedByUser.UserName))
             .ReverseMap();
-        
-        CreateMap<Comment, PostCommentViewModel>();
+
+        CreateMap<Comment, PostCommentViewModel>()
+            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedByUser.UserName));
+
         CreateMap<Feedback, PostFeedbackViewModel>()
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedByUser.UserName));
     }
