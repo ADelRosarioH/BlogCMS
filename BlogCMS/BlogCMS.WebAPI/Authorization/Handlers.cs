@@ -3,8 +3,6 @@ using BlogCMS.Infrastructure.Helpers.Constants;
 using BlogCMS.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Identity.Web;
 
 namespace BlogCMS.WebAPI.Authorization;
 
