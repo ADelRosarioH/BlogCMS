@@ -14,6 +14,9 @@ public class PostProfile : Profile
         CreateMap<Post, PostViewModel>()
             .ReverseMap();
         
+        CreateMap<Post, OwnPostViewModel>()
+            .ReverseMap();
+        
         CreateMap<Comment, PostCommentViewModel>();
         CreateMap<Feedback, PostFeedbackViewModel>();
     }
