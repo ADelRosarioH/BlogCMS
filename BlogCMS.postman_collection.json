@@ -1,0 +1,797 @@
+{
+	"info": {
+		"_postman_id": "9bde5ca5-bc0b-4570-bd75-9b582570b3e5",
+		"name": "BlogCMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register New Public User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const userName = pm.collectionVariables.replaceIn(\"{{$randomUserName}}\");",
+							"pm.collectionVariables.set(\"userName:public\", userName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"{{userName:public}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"Test123*\",\n    \"role\": \"public\"\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/auth/signup",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Public User Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var { token } = pm.response.json();",
+							"pm.collectionVariables.set(\"token:public\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"{{userName:public}}\",\n    \"password\": \"Test123*\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7173/auth/signin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register New Writer User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const userName = pm.collectionVariables.replaceIn(\"{{$randomUserName}}\");",
+							"pm.collectionVariables.set(\"userName:writer\", userName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"{{userName:writer}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"Test123*\",\n    \"role\": \"writer\"\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/auth/signup",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Writer User Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var { token } = pm.response.json();",
+							"pm.collectionVariables.set(\"token:writer\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"{{userName:writer}}\",\n    \"password\": \"Test123*\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7173/auth/signin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register New Editor User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const userName = pm.collectionVariables.replaceIn(\"{{$randomUserName}}\");",
+							"pm.collectionVariables.set(\"userName:editor\", userName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"{{userName:editor}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"Test123*\",\n    \"role\": \"editor\"\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/auth/signup",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Editor User Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var { token } = pm.response.json();",
+							"pm.collectionVariables.set(\"token:editor\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"{{userName:editor}}\",\n    \"password\": \"Test123*\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7173/auth/signin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Writer User Can Create New Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const { id } = pm.response.json();",
+							"pm.collectionVariables.set(\"postId\", id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:writer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImVhMWMzYzlmLTNhZDEtNDQxNy1kOGEzLTA4ZGIwYTVjNjgzMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ3cml0ZXIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV3JpdGVyIiwiZXhwIjoxNjc1OTcyOTc4fQ.nbmFXJCDHXdxmCRdorzLo4UPTtul6gX37GwuY4Tkmck"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{$randomLoremWords}}\",\n    \"content\": \"{{$randomLoremParagraph}}\"\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/posts",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Writer User Can Submit Draft Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Post Status Should Be Pending\", function () {",
+							"    var { status, statusDescription } = pm.response.json();",
+							"    pm.expect(status).to.eql(1);",
+							"    pm.expect(statusDescription).to.eql(\"Pending\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:writer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImVhMWMzYzlmLTNhZDEtNDQxNy1kOGEzLTA4ZGIwYTVjNjgzMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ3cml0ZXIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV3JpdGVyIiwiZXhwIjoxNjc1OTcyOTc4fQ.nbmFXJCDHXdxmCRdorzLo4UPTtul6gX37GwuY4Tkmck"
+					}
+				],
+				"url": {
+					"raw": "https://{{host}}/posts/:postId/submit",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts",
+						":postId",
+						"submit"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "{{postId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editor User Can Reject Post with Comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:editor}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY1ODU4MDA5LTI5MTMtNGI4OS05ZjZiLTA4ZGIwYWNmZTRhOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJlZGl0b3IxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRWRpdG9yIiwiZXhwIjoxNjc1OTcyODM1fQ.u0T7fNDIesK59mTBP8i4sQzJavU_83wqjhLSBnLdfxo"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment\": \"{{$randomLoremText}}\"\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/posts/:postId/reject",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts",
+						":postId",
+						"reject"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "{{postId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Writer User Can See Rejected Posts with Feedback",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Rejected Post Has Feedback\", function () {",
+							"    const posts = pm.response.json();",
+							"    const postId = pm.collectionVariables.get(\"postId\");",
+							"    ",
+							"    const foundPosts = posts.filter(p => p.id.toLowerCase() == postId.toLowerCase());",
+							"    const post = foundPosts[0];",
+							"",
+							"    pm.expect(post.feedbacks).to.lengthOf(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:writer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY1ODU4MDA5LTI5MTMtNGI4OS05ZjZiLTA4ZGIwYWNmZTRhOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJlZGl0b3IxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRWRpdG9yIiwiZXhwIjoxNjc1OTcyODM1fQ.u0T7fNDIesK59mTBP8i4sQzJavU_83wqjhLSBnLdfxo"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/posts",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Writer User Can Update a Rejected Post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:writer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImVhMWMzYzlmLTNhZDEtNDQxNy1kOGEzLTA4ZGIwYTVjNjgzMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ3cml0ZXIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV3JpdGVyIiwiZXhwIjoxNjc1OTcyOTc4fQ.nbmFXJCDHXdxmCRdorzLo4UPTtul6gX37GwuY4Tkmck"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"{{$randomLoremWords}}\",\n    \"content\": \"{{$randomLoremParagraph}}\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7173/posts/:postId",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"posts",
+						":postId"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "{{postId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Writer User Can Submit Rejected Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Post Status Should Be Pending\", function () {",
+							"    var { status, statusDescription } = pm.response.json();",
+							"    pm.expect(status).to.eql(1);",
+							"    pm.expect(statusDescription).to.eql(\"Pending\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:writer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImVhMWMzYzlmLTNhZDEtNDQxNy1kOGEzLTA4ZGIwYTVjNjgzMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJ3cml0ZXIxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiV3JpdGVyIiwiZXhwIjoxNjc1OTcyOTc4fQ.nbmFXJCDHXdxmCRdorzLo4UPTtul6gX37GwuY4Tkmck"
+					}
+				],
+				"url": {
+					"raw": "https://{{host}}/posts/:postId/submit",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts",
+						":postId",
+						"submit"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "{{postId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editor User Can Approve Post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:editor}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY1ODU4MDA5LTI5MTMtNGI4OS05ZjZiLTA4ZGIwYWNmZTRhOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJlZGl0b3IxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRWRpdG9yIiwiZXhwIjoxNjc1OTcyODM1fQ.u0T7fNDIesK59mTBP8i4sQzJavU_83wqjhLSBnLdfxo"
+					}
+				],
+				"url": {
+					"raw": "https://{{host}}/posts/:postId/approve",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts",
+						":postId",
+						"approve"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "{{postId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Public User Can See Approved/Published Posts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token:public}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/plain"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImY1ODU4MDA5LTI5MTMtNGI4OS05ZjZiLTA4ZGIwYWNmZTRhOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJlZGl0b3IxIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRWRpdG9yIiwiZXhwIjoxNjc1OTcyODM1fQ.u0T7fNDIesK59mTBP8i4sQzJavU_83wqjhLSBnLdfxo"
+					}
+				],
+				"url": {
+					"raw": "https://{{host}}/posts/all",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:7173",
+			"type": "default"
+		},
+		{
+			"key": "userName:public",
+			"value": ""
+		},
+		{
+			"key": "token:public",
+			"value": ""
+		},
+		{
+			"key": "userName:writer",
+			"value": ""
+		},
+		{
+			"key": "token:writer",
+			"value": ""
+		},
+		{
+			"key": "userName:editor",
+			"value": ""
+		},
+		{
+			"key": "token:editor",
+			"value": ""
+		},
+		{
+			"key": "postId",
+			"value": ""
+		}
+	]
+}
