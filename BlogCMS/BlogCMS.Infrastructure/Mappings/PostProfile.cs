@@ -12,12 +12,15 @@ public class PostProfile : Profile
         CreateMap<UpdatePostViewModel, Post>();
         
         CreateMap<Post, PostViewModel>()
+            .ForMember(src => src.CreatedBy, opt => opt.MapFrom(dest => dest.CreatedByUser.UserName))
             .ReverseMap();
         
         CreateMap<Post, OwnPostViewModel>()
+            .ForMember(src => src.CreatedBy, opt => opt.MapFrom(dest => dest.CreatedByUser.UserName))
             .ReverseMap();
         
         CreateMap<Comment, PostCommentViewModel>();
-        CreateMap<Feedback, PostFeedbackViewModel>();
+        CreateMap<Feedback, PostFeedbackViewModel>()
+            .ForMember(src => src.CreatedBy, opt => opt.MapFrom(dest => dest.CreatedByUser.UserName));
     }
 }

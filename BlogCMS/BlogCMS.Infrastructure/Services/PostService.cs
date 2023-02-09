@@ -36,11 +36,11 @@ public class PostService : IPostService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<ICollection<PostViewModel>> GetCurrentUserPosts()
+    public async Task<ICollection<OwnPostViewModel>> GetCurrentUserPosts()
     {
         var userId = _currentUserService.CurrentUserId;
         var query = _context.Posts.Where(p => p.CreatedByUserId == userId);
-        return await _mapper.ProjectTo<PostViewModel>(query)
+        return await _mapper.ProjectTo<OwnPostViewModel>(query)
             .ToListAsync();
     }
 

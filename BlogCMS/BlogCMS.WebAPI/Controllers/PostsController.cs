@@ -30,7 +30,7 @@ public class PostsController : BaseController
     }
     
     [HttpGet("")]
-    public async Task<ActionResult<ICollection<PostViewModel>>> GetCurrentUserPosts()
+    public async Task<ActionResult<ICollection<OwnPostViewModel>>> GetCurrentUserPosts()
     {
         var posts = await _postService.GetCurrentUserPosts();
         return Ok(posts);
@@ -90,8 +90,8 @@ public class PostsController : BaseController
     }
     
     [HttpPost("{postId:guid}/comment")]
-    [Authorize(policy: Policies.CanRejectPostPolicy)]
-    public async Task<ActionResult<PostCommentViewModel>> Reject(Guid postId, [FromBody]NewPostViewModel model)
+    [Authorize(policy: Policies.CanCommentPostPolicy)]
+    public async Task<ActionResult<PostCommentViewModel>> Reject(Guid postId, [FromBody]NewPostCommentViewModel model)
     {
         var comment = await _commentService.CommentOnPost(postId, model.Content);
         return Ok(comment);
