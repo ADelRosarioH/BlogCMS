@@ -1,6 +1,7 @@
 using BlogCMS.Infrastructure.Context;
 using BlogCMS.Infrastructure.Mappings;
 using BlogCMS.WebAPI.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddMaps(typeof(PostProfile));
 });
+builder.Services.AddHealthChecks();
 
 // Add BlogCMS Services
 var config = builder.Configuration;
@@ -52,5 +54,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health")
+    .WithMetadata(new AllowAnonymousAttribute());
 
 app.Run();
