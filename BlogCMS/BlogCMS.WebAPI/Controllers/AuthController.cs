@@ -1,10 +1,12 @@
 using System.Net;
 using BlogCMS.Infrastructure.Interfaces;
 using BlogCMS.Infrastructure.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogCMS.WebAPI.Controllers;
 
+[AllowAnonymous]
 public class AuthController : BaseController
 {
     private readonly IJwtProvider _jwtProvider;

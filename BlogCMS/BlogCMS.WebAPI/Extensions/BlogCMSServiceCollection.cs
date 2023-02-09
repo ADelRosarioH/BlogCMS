@@ -10,6 +10,7 @@ public static class BlogCMSServiceCollection
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<IPostService, PostService>();
         return services;
     }
 }
