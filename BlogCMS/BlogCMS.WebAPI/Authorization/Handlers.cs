@@ -54,6 +54,7 @@ public static class Handlers
             var currentUser = await userManager.FindByNameAsync(context.User.Identity.Name);
             var currentPost = await postService.GetPostById(postId);
 
+            // writer can only submit his own posts when status is draft or rejected
             return context.User.IsInRole(Roles.Writer) &&
                    await postService.IsPostAuthor(currentUser.Id, postId) &&
                    (currentPost.Status == PostStatus.Draft || currentPost.Status == PostStatus.Rejected);
