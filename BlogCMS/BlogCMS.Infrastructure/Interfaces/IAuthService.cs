@@ -5,6 +5,6 @@ namespace BlogCMS.Infrastructure.Interfaces;
 
 public interface IAuthService
 {
-    Task<BlogUser?> RegisterNewUser(string userName, string email, string password);
+    Task<BlogUser?> RegisterNewUser(string userName, string email, string role, string password);
     Task<bool> AreCredentialsValid(string userName, string password);
 }

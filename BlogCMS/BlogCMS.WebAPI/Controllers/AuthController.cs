@@ -34,7 +34,10 @@ public class AuthController : BaseController
     [HttpPost("signup")]
     public async Task<IActionResult> SignUp(RegisterNewUserViewModel model)
     {
-        var newUser = await _authService.RegisterNewUser(model.UserName, model.Email, model.Password);
+        var newUser = await _authService.RegisterNewUser(model.UserName, 
+            model.Email,
+            model.Role,
+            model.Password);
         
         if (newUser is not null)
         {

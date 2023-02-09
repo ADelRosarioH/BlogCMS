@@ -14,7 +14,7 @@ public class AuthService : IAuthService
         _userManager = userManager;
     }
     
-    public async Task<BlogUser?> RegisterNewUser(string userName, string email, string password)
+    public async Task<BlogUser?> RegisterNewUser(string userName, string email, string role, string password)
     {
         var result = await _userManager.CreateAsync(new BlogUser
         {
@@ -24,7 +24,14 @@ public class AuthService : IAuthService
 
         var newUser = await _userManager.FindByNameAsync(userName);
 
-        await _userManager.AddToRoleAsync(newUser, Roles.Writer);
+        if (!new[] {Roles.Writer, Roles.Editor, Roles.Public}
+                .Select(r => r.ToLower())
+                .Contains(role.ToLower()))
+        {
+            throw new Exception("Invalid Role. Role must be Writer, Editor or Public.");
+        }
+        
+        await _userManager.AddToRoleAsync(newUser, role);
         
         return result == IdentityResult.Success
             ? await _userManager.FindByNameAsync(userName)
