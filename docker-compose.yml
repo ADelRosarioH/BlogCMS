@@ -1,0 +1,29 @@
+version: "3"
+services: 
+    blogcms:        
+        build: 
+            context: ./BlogCMS
+            dockerfile: ./BlogCMS.WebAPI/Dockerfile
+        container_name: blogcms-webapi
+        ports:
+          - 7173:7173
+          - 5026:5026
+        depends_on:
+            - mssqldb
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:7173;http://+:5026
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+            - ConnectionStrings__BlogCMS=Server=mssqldb,1433;Database=BlogCMS;User ID=sa;Password=Password123*;Trusted_Connection=False;Persist Security Info=False;Encrypt=False
+        restart: unless-stopped
+        volumes:
+          - ~/.aspnet/https:/https:ro
+    mssqldb:
+        image: mcr.microsoft.com/mssql/server
+        container_name: mssqldb
+        environment:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: Password123*
+        ports:
+          - 1433:1433
