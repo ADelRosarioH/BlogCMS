@@ -1,7 +1,6 @@
 namespace BlogCMS.Infrastructure.Models;
 
-public class NewPostViewModel
+public class NewPostCommentViewModel
 {
-    public string Title { get; set; }
     public string Content { get; set; }
 }

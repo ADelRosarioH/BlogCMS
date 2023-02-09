@@ -1,6 +1,6 @@
 namespace BlogCMS.Infrastructure.Models;
 
-public class SignInResponseViewModel
+public class JwtViewModel
 {
     public string Token { get; set; }
 }

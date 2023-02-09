@@ -18,6 +18,8 @@ public static class AuthorizationServiceCollection
             opts.AddPolicy(Policies.CanUpdatePostPolicy, Handlers.CanUpdatePostPolicyHandler);
             opts.AddPolicy(Policies.CanApprovePostPolicy, Handlers.CanApprovePostPolicyHandler);
             opts.AddPolicy(Policies.CanRejectPostPolicy, Handlers.CanRejectPostPolicyHandler);
+            opts.AddPolicy(Policies.CanSubmitPostPolicy, Handlers.CanSubmitPostPolicyHandler);
+            opts.AddPolicy(Policies.CanCommentPostPolicy, Handlers.CanCommentPostPolicyHandler);
         });
         
         return services;

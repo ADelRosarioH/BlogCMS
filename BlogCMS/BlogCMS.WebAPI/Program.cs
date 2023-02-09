@@ -1,4 +1,5 @@
 using BlogCMS.Infrastructure.Context;
+using BlogCMS.Infrastructure.Mappings;
 using BlogCMS.WebAPI.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,11 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseUrls = true;
 });
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddMaps(typeof(PostProfile));
+});
 
 // Add BlogCMS Services
 var config = builder.Configuration;

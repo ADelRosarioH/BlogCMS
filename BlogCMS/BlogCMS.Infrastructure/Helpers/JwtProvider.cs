@@ -25,12 +25,14 @@ public class JwtProvider : IJwtProvider
     {
         // setup claims
         var user = await _userManager.FindByNameAsync(userName);
+        var options = new ClaimsIdentityOptions();
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.UserName)
+            new Claim(options.UserIdClaimType, user.Id.ToString()),
+            new Claim(options.UserNameClaimType, user.UserName)
         };
         var roles = await _userManager.GetRolesAsync(user);
-        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        claims.AddRange(roles.Select(role => new Claim(options.RoleClaimType, role)));
 
         // setup signing credentials
         var secretKeyBytes = Encoding.UTF8.GetBytes(_jwtSettings.SecretKey);

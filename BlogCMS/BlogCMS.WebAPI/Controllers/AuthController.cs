@@ -19,7 +19,7 @@ public class AuthController : BaseController
     }
 
     [HttpPost("signin")]
-    public async Task<ActionResult> SignIn(SignInRequestViewModel model)
+    public async Task<ActionResult> SignIn(SignInViewModel model)
     {
         if (!await _authService.AreCredentialsValid(model.UserName, model.Password))
         {
@@ -28,11 +28,11 @@ public class AuthController : BaseController
 
         var token = await _jwtProvider.GenerateUserToken(model.UserName);
 
-        return Ok(new SignInResponseViewModel {Token = token});
+        return Ok(new JwtViewModel {Token = token});
     }
     
     [HttpPost("signup")]
-    public async Task<IActionResult> SignUp(SignUpRequestViewModel model)
+    public async Task<IActionResult> SignUp(RegisterNewUserViewModel model)
     {
         var newUser = await _authService.RegisterNewUser(model.UserName, model.Email, model.Password);
         
