@@ -42,7 +42,8 @@ export class AuthService {
   getCurrentUser(): User {
     const token = localStorage.getItem('token') as string;
     const decoded = this.jwtHelper.decodeToken(token);
-    const userName = decoded["unique_name"];
+    const nameClaim = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
+    const userName = decoded[nameClaim];
 
     return { userName };
   }
