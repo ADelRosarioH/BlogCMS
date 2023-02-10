@@ -2,7 +2,10 @@ using BlogCMS.Infrastructure.Context;
 using BlogCMS.Infrastructure.Mappings;
 using BlogCMS.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+
+const string CorsDevelopmentPolicyName = nameof(CorsDevelopmentPolicyName);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,13 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddMaps(typeof(PostProfile));
 });
 builder.Services.AddHealthChecks();
+builder.Services.AddCors(cfg =>
+{
+    cfg.AddPolicy(CorsDevelopmentPolicyName, builder =>
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 // Add BlogCMS Services
 var config = builder.Configuration;
@@ -46,6 +56,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors(CorsDevelopmentPolicyName);
 }
 
 app.UseHttpsRedirection();
