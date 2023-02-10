@@ -1,1 +1,9 @@
-<p>new-post works!</p>
+<app-post-editor [post]="newPost"></app-post-editor>
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+            <button type="button" class="btn btn-danger">Submit</button>
+        </div>
+    </div>
+</div>
