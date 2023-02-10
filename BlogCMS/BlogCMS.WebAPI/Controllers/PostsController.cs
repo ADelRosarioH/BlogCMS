@@ -36,7 +36,7 @@ public class PostsController : BaseController
         return Ok(posts);
     }
     
-    [HttpGet("postId:guid")]
+    [HttpGet("{postId:guid}")]
     public async Task<ActionResult<ICollection<PostViewModel>>> GetPostById(Guid postId)
     {
         var post = await _postService.GetPostById(postId);
