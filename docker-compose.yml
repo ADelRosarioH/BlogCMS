@@ -15,6 +15,8 @@ services:
             - ASPNETCORE_URLS=https://+:7173;http://+:5026
             - ASPNETCORE_Kestrel__Certificates__Default__Password=password
             - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+            - JwtSettings__SecretKey=zws4egUU^&GJt2B!
+            - JwtSettings__ExpiresInMinutes=60
             - ConnectionStrings__BlogCMS=Server=mssqldb,1433;Database=BlogCMS;User ID=sa;Password=Password123*;Trusted_Connection=False;Persist Security Info=False;Encrypt=False
         restart: unless-stopped
         volumes:
