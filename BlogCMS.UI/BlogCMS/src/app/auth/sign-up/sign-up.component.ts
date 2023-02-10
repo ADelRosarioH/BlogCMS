@@ -23,7 +23,7 @@ export class SignUpComponent {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.hasValidToken()) {
       this.router.navigate(['']);
     }
   }

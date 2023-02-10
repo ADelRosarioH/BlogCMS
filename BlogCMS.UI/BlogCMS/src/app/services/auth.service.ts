@@ -2,7 +2,7 @@ import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,7 +24,13 @@ export class AuthService {
     });
   }
 
-  isLoggedIn(): boolean {
+  isSignedInInSubject = new BehaviorSubject<boolean>(this.hasValidToken());
+
+  isSignedIn(): Observable<boolean> {
+    return this.isSignedInInSubject.asObservable();
+  }
+  
+  hasValidToken(): boolean {
     const token = localStorage.getItem('token');
     // Check whether the token is expired and return
     // true or false
@@ -32,7 +38,8 @@ export class AuthService {
   }
 
   signOut() {
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
+    this.isSignedInInSubject.next(false);
   }
 
   getToken() {
@@ -76,7 +83,7 @@ export class AuthGuardService implements CanActivate {
   constructor(public auth: AuthService, public router: Router) { }
 
   canActivate(): boolean {
-    if (!this.auth.isLoggedIn()) {
+    if (!this.auth.hasValidToken()) {
       this.router.navigate(['signin']);
       return false;
     }

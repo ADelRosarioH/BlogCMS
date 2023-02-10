@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService, User } from './services/auth.service';
 
 @Component({
@@ -8,15 +10,19 @@ import { AuthService, User } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'BlogCMS - Zemoga';
-  isUserSignedIn: boolean = false;
+  isUserSignedIn: Observable<boolean>;
   user: User = { userName: ""};
 
-  constructor(private authService: AuthService) {
-    
+  constructor(private authService: AuthService, private router: Router) {
+    this.isUserSignedIn = this.authService.isSignedIn();
   }
 
   ngOnInit(): void {
-    this.isUserSignedIn = this.authService.isLoggedIn();
     this.user = this.authService.getCurrentUser();
+  }
+
+  signOut() {
+    this.authService.signOut();
+    this.router.navigate(['/signin']);
   }
 }
