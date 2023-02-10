@@ -15,6 +15,9 @@ import { AuthGuardService, AuthInterceptor } from './services/auth.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DraftListComponent } from './posts/draft-list/draft-list.component';
+import { PostEditorComponent } from './posts/post-editor/post-editor.component';
+import { PostFeedbackComponent } from './posts/post-feedback/post-feedback.component';
 
 const AuthInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
@@ -29,7 +32,10 @@ const AuthInterceptorProvider = {
     SignUpComponent,
     PostListComponent,
     PostComponent,
-    NewPostComponent
+    NewPostComponent,
+    DraftListComponent,
+    PostEditorComponent,
+    PostFeedbackComponent
   ],
   imports: [
     BrowserModule,

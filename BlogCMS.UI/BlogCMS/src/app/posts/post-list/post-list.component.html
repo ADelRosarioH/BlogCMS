@@ -1,1 +1,28 @@
-<p>post-list works!</p>
+<div class="row mb-2 mt-2">
+    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 font-italic">List of published posts</h1>
+        </div>
+    </div>
+</div>
+<ng-container *ngIf="posts && posts.length">
+    <ng-container *ngFor="let post of posts">    
+        <div class="row">    
+            <div class="col-md-12">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary"></strong>
+                        <h3 class="mb-0">{{post?.title}}</h3>
+                        <div class="mb-1 text-muted">{{post?.createdAt}}</div>
+                        <p class="card-text mb-auto">
+                            {{post?.content?.substring(0, 55)}} ...
+                        </p>
+                        <a class="stretched-link" [routerLink]="['/posts', post.id]">Continue reading</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

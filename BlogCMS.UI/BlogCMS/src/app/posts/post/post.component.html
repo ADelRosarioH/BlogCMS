@@ -1,1 +1,16 @@
-<p>post works!</p>
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="blog-post-title">{{post?.title}}</h2>
+        <p class="blog-post-meta">{{post?.createdAt}} by <span class="text-muted">{{post?.createdBy}}</span></p>        
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        {{post?.content}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <a routerLink="/posts">Go back</a>
+    </div>
+</div>
