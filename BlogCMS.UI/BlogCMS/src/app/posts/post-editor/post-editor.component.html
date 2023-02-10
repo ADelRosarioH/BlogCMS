@@ -1,1 +1,21 @@
-<p>post-editor works!</p>
+ <ng-container *ngIf="post">
+    <div class="row">
+        <div class="col-12">
+              <div class="mb-3">
+                <label for="title" class="form-label fs-2">A great title</label>
+                <textarea class="form-control" id="title" rows="3" [(ngModel)]="post.title"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label for="title" class="form-label fs-2">Awesome content</label>
+            <angular-markdown-editor
+                textareaId="contentEditor" 
+                name="content" 
+                [options]="editorOptions"
+                [(ngModel)]="post.content">
+            </angular-markdown-editor>
+        </div>
+    </div>
+ </ng-container>

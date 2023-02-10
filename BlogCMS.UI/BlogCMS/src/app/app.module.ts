@@ -14,10 +14,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuardService, AuthInterceptor } from './services/auth.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DraftListComponent } from './posts/draft-list/draft-list.component';
 import { PostEditorComponent } from './posts/post-editor/post-editor.component';
 import { PostFeedbackComponent } from './posts/post-feedback/post-feedback.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { AngularMarkdownEditorModule } from 'angular-markdown-editor';
+import { EditPostComponent } from './posts/edit-post/edit-post.component';
 
 const AuthInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
@@ -35,11 +38,13 @@ const AuthInterceptorProvider = {
     NewPostComponent,
     DraftListComponent,
     PostEditorComponent,
-    PostFeedbackComponent
+    PostFeedbackComponent,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     AppRoutingModule,
@@ -52,6 +57,8 @@ const AuthInterceptorProvider = {
       },
     }),
     NgbModule,
+    AngularMarkdownEditorModule.forRoot({ iconlibrary: 'fa' }),
+    MarkdownModule.forRoot()
   ],
   providers: [
     AuthInterceptorProvider, 
