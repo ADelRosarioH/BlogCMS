@@ -6,6 +6,24 @@
 	},
 	"item": [
 		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{host}}/health",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Register New Public User",
 			"event": [
 				{
@@ -91,12 +109,11 @@
 					"raw": "{\n    \"userName\": \"{{userName:public}}\",\n    \"password\": \"Test123*\"\n}"
 				},
 				"url": {
-					"raw": "https://localhost:7173/auth/signin",
+					"raw": "https://{{host}}/auth/signin",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "7173",
 					"path": [
 						"auth",
 						"signin"
@@ -191,12 +208,11 @@
 					"raw": "{\n    \"userName\": \"{{userName:writer}}\",\n    \"password\": \"Test123*\"\n}"
 				},
 				"url": {
-					"raw": "https://localhost:7173/auth/signin",
+					"raw": "https://{{host}}/auth/signin",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "7173",
 					"path": [
 						"auth",
 						"signin"
@@ -291,12 +307,11 @@
 					"raw": "{\n    \"userName\": \"{{userName:editor}}\",\n    \"password\": \"Test123*\"\n}"
 				},
 				"url": {
-					"raw": "https://localhost:7173/auth/signin",
+					"raw": "https://{{host}}/auth/signin",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "7173",
 					"path": [
 						"auth",
 						"signin"
@@ -575,12 +590,11 @@
 					"raw": "{\n    \"title\": \"{{$randomLoremWords}}\",\n    \"content\": \"{{$randomLoremParagraph}}\"\n}"
 				},
 				"url": {
-					"raw": "https://localhost:7173/posts/:postId",
+					"raw": "https://{{host}}/posts/:postId",
 					"protocol": "https",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "7173",
 					"path": [
 						"posts",
 						":postId"
@@ -760,11 +774,6 @@
 		}
 	],
 	"variable": [
-		{
-			"key": "host",
-			"value": "localhost:7173",
-			"type": "default"
-		},
 		{
 			"key": "userName:public",
 			"value": ""
