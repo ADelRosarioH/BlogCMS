@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { PostListComponent } from './posts/post-list/post-list.component';
+import { AuthGuardService as AuthGuard } from './services/auth.service';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: PostListComponent, canActivate: [AuthGuard] },
+  { path: 'signin', component: SignInComponent },
+  { path: 'signup', component: SignUpComponent },
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
