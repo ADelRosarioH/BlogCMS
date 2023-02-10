@@ -2,11 +2,14 @@
     <div *ngIf="(isUserSignedIn | async)" class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-4 pt-1">
         </div>
-        <div class="col-4 text-center">
+        <div class="col-2 text-center">
             <a class="blog-header-logo text-dark" href="#">Zemoga</a>
         </div>
         <div class="col-2 d-flex justify-content-end align-items-center">
             <span class="text-dark">Welcome <span class="font-italics fw-bolder">{{user.userName}}</span>!</span>
+        </div>
+        <div class="col-2">
+            <a routerLink="drafts">My Posts</a>
         </div>
         <div class="col-2">
             <span role="button" class="text-decoration-underline" (click)="signOut()">Sign Out</span>

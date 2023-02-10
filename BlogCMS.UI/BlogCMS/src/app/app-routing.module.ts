@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { DraftListComponent } from './posts/draft-list/draft-list.component';
 import { PostEditorComponent } from './posts/post-editor/post-editor.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostComponent } from './posts/post/post.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'posts', component: PostListComponent, canActivate: [AuthGuard] },
   { path: 'posts/:postId', component: PostComponent, canActivate: [AuthGuard] },
   { path: 'posts/:postId/edit', component: PostEditorComponent, canActivate: [AuthGuard] },
+  { path: 'drafts', component: DraftListComponent, canActivate: [AuthGuard] },
   { path: 'signin', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
   { path: '**', redirectTo: '' }
