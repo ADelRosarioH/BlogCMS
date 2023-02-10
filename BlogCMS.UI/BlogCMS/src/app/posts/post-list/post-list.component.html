@@ -15,7 +15,9 @@
                         <h3 class="mb-0">{{post?.title}}</h3>
                         <div class="mb-1 text-muted">{{post?.createdAt}}</div>
                         <p class="card-text mb-auto">
-                            {{post?.content?.substring(0, 55)}} ...
+                            <markdown>
+                                {{post?.content?.substring(0, 55)}} ...
+                            </markdown>
                         </p>
                         <a class="stretched-link" [routerLink]="['/posts', post.id]">Continue reading</a>
                     </div>
