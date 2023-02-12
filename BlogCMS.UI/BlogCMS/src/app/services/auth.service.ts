@@ -24,12 +24,17 @@ export class AuthService {
     });
   }
 
-  isSignedInInSubject = new BehaviorSubject<boolean>(this.hasValidToken());
+  isSignedInSubject = new BehaviorSubject<boolean>(this.hasValidToken());
+  currentUserSubject = new BehaviorSubject<User | undefined>(this.getCurrentUser());
 
   isSignedIn(): Observable<boolean> {
-    return this.isSignedInInSubject.asObservable();
+    return this.isSignedInSubject.asObservable();
   }
   
+  currentUser(): Observable<User | undefined> {
+    return this.currentUserSubject.asObservable();
+  }
+
   hasValidToken(): boolean {
     const token = localStorage.getItem('token');
     // Check whether the token is expired and return
@@ -39,15 +44,20 @@ export class AuthService {
 
   signOut() {
     localStorage.removeItem('token');
-    this.isSignedInInSubject.next(false);
+    this.isSignedInSubject.next(false);
+    this.currentUserSubject.next(undefined);
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+  getToken(): string {
+    return localStorage.getItem('token') as string;
   }
 
-  getCurrentUser(): User {
-    const token = localStorage.getItem('token') as string;
+  getCurrentUser(): User | undefined {
+    if (!this.hasValidToken()) {
+      return undefined;
+    }
+
+    const token = this.getToken();
     const decoded = this.jwtHelper.decodeToken(token);
     const nameClaim = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
     const roleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";

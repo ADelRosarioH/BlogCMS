@@ -1,26 +1,28 @@
 <div class="container">
     <ng-container *ngIf="(isUserSignedIn | async)">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 pt-1">
-            </div>
-            <div class="col-4 text-center">
-                <span class="blog-header-logo text-dark">Zemoga</span>
-            </div>            
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <span class="text-muted me-4">
-                    Welcome {{user.userName}}!
-                </span>
-                <span role="button" class="text-decoration-underline" (click)="signOut()">Sign Out</span>
-            </div>
-        </div>    
-        <nav class="nav d-flex">
-            <a class="p-2 text-muted" routerLink="/posts">Published Posts</a>
-            <a class="p-2 text-muted" routerLink="/posts/pending" *ngIf="user.role === Roles.Editor">Pending Review</a>
-            <ng-container *ngIf="user.role === Roles.Writer">
-                <a class="p-2 text-muted" routerLink="/drafts">Drafts</a>
-                <a class="p-2 text-muted" routerLink="/posts/new">New Post</a>
-            </ng-container>
-        </nav>
+        <ng-container *ngIf="user | async as currentUser">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                </div>
+                <div class="col-4 text-center">
+                    <span class="blog-header-logo text-dark">Zemoga</span>
+                </div>            
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                    <span class="text-muted me-4">
+                        Welcome {{currentUser.userName}}!
+                    </span>
+                    <span role="button" class="text-decoration-underline" (click)="signOut()">Sign Out</span>
+                </div>
+            </div>    
+            <nav class="nav d-flex">
+                <a class="p-2 text-muted" routerLink="/posts">Published Posts</a>
+                <a class="p-2 text-muted" routerLink="/posts/pending" *ngIf="currentUser.role === Roles.Editor">Pending Review</a>
+                <ng-container *ngIf="currentUser.role === Roles.Writer">
+                    <a class="p-2 text-muted" routerLink="/drafts">Drafts</a>
+                    <a class="p-2 text-muted" routerLink="/posts/new">New Post</a>
+                </ng-container>
+            </nav>
+        </ng-container>
     </ng-container>
     <router-outlet></router-outlet>
 </div>

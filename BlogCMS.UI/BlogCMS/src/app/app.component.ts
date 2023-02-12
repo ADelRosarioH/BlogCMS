@@ -8,15 +8,18 @@ import { AuthService, User, Roles } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'BlogCMS - Zemoga';
-  isUserSignedIn: Observable<boolean>;
-  user: User;
+  isUserSignedIn: Observable<boolean>; 
+  user: Observable<User | undefined>;
   Roles = Roles;
 
   constructor(private authService: AuthService, private router: Router) {
     this.isUserSignedIn = this.authService.isSignedIn();
-    this.user = this.authService.getCurrentUser();
+    this.user = this.authService.currentUser();
+  }
+
+  ngOnInit(): void {
   }
 
   signOut() {
