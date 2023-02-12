@@ -62,15 +62,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userName\": \"{{userName:public}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"Test123*\",\n    \"role\": \"public\"\n}"
+					"raw": "{\n    \"userName\": \"{{userName:public}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"Test123*\",\n    \"role\": \"writer\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/auth/signup",
+					"raw": "https://{{host}}/api/auth/signup",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"auth",
 						"signup"
 					]
@@ -109,12 +110,13 @@
 					"raw": "{\n    \"userName\": \"{{userName:public}}\",\n    \"password\": \"Test123*\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/auth/signin",
+					"raw": "https://{{host}}/api/auth/signin",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"auth",
 						"signin"
 					]
@@ -164,12 +166,13 @@
 					"raw": "{\n    \"userName\": \"{{userName:writer}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"Test123*\",\n    \"role\": \"writer\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/auth/signup",
+					"raw": "https://{{host}}/api/auth/signup",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"auth",
 						"signup"
 					]
@@ -208,12 +211,13 @@
 					"raw": "{\n    \"userName\": \"{{userName:writer}}\",\n    \"password\": \"Test123*\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/auth/signin",
+					"raw": "https://{{host}}/api/auth/signin",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"auth",
 						"signin"
 					]
@@ -263,12 +267,13 @@
 					"raw": "{\n    \"userName\": \"{{userName:editor}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"Test123*\",\n    \"role\": \"editor\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/auth/signup",
+					"raw": "https://{{host}}/api/auth/signup",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"auth",
 						"signup"
 					]
@@ -307,12 +312,13 @@
 					"raw": "{\n    \"userName\": \"{{userName:editor}}\",\n    \"password\": \"Test123*\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/auth/signin",
+					"raw": "https://{{host}}/api/auth/signin",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"auth",
 						"signin"
 					]
@@ -365,12 +371,13 @@
 					"raw": "{\n    \"title\": \"{{$randomLoremWords}}\",\n    \"content\": \"{{$randomLoremParagraph}}\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/posts",
+					"raw": "https://{{host}}/api/posts",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts"
 					]
 				}
@@ -417,12 +424,13 @@
 					}
 				],
 				"url": {
-					"raw": "https://{{host}}/posts/:postId/submit",
+					"raw": "https://{{host}}/api/posts/:postId/submit",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts",
 						":postId",
 						"submit"
@@ -470,12 +478,13 @@
 					"raw": "{\n    \"comment\": \"{{$randomLoremText}}\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/posts/:postId/reject",
+					"raw": "https://{{host}}/api/posts/:postId/reject",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts",
 						":postId",
 						"reject"
@@ -545,12 +554,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/posts",
+					"raw": "https://{{host}}/api/posts",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts"
 					]
 				}
@@ -590,12 +600,13 @@
 					"raw": "{\n    \"title\": \"{{$randomLoremWords}}\",\n    \"content\": \"{{$randomLoremParagraph}}\"\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/posts/:postId",
+					"raw": "https://{{host}}/api/posts/:postId",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts",
 						":postId"
 					],
@@ -649,12 +660,13 @@
 					}
 				],
 				"url": {
-					"raw": "https://{{host}}/posts/:postId/submit",
+					"raw": "https://{{host}}/api/posts/:postId/submit",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts",
 						":postId",
 						"submit"
@@ -694,12 +706,13 @@
 					}
 				],
 				"url": {
-					"raw": "https://{{host}}/posts/:postId/approve",
+					"raw": "https://{{host}}/api/posts/:postId/approve",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts",
 						":postId",
 						"approve"
@@ -739,12 +752,13 @@
 					}
 				],
 				"url": {
-					"raw": "https://{{host}}/posts/all",
+					"raw": "https://{{host}}/api/posts/all",
 					"protocol": "https",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"posts",
 						"all"
 					]

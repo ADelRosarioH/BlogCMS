@@ -17,6 +17,7 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseUrls = true;
 });
 builder.Services.AddControllers();
+builder.Services.AddRouting();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(cfg =>
 {
