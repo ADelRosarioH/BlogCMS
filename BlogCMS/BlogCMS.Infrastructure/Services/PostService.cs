@@ -63,7 +63,9 @@ public class PostService : IPostService
         var query = _context.Posts
             .Include(p => p.CreatedByUser)
             .Include(p => p.Comments)
+                .ThenInclude(c => c.CreatedByUser)
             .Include(p => p.Feedbacks.Where(f => f.Post.CreatedByUserId == currentUserId || userIsEditor))
+                .ThenInclude(f => f.CreatedByUser)
             .AsQueryable();
 
         return query;
