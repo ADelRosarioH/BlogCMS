@@ -50,9 +50,12 @@ export class AuthService {
     const token = localStorage.getItem('token') as string;
     const decoded = this.jwtHelper.decodeToken(token);
     const nameClaim = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
-    const userName = decoded[nameClaim];
+    const roleClaim = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
 
-    return { userName };
+    const userName = decoded[nameClaim];
+    const role = decoded[roleClaim];
+
+    return { userName, role };
   }
 }
 
@@ -93,4 +96,11 @@ export class AuthGuardService implements CanActivate {
 
 export class User {
   userName: string = "";
+  role: string = "";
+}
+
+export enum Roles {
+  Writer = "Writer",
+  Editor = "Editor",
+  Public = "Public"
 }

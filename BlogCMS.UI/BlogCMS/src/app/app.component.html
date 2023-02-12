@@ -13,11 +13,13 @@
                 <span role="button" class="text-decoration-underline" (click)="signOut()">Sign Out</span>
             </div>
         </div>    
-        <nav class="nav d-flex justify-content-between">
+        <nav class="nav d-flex">
             <a class="p-2 text-muted" routerLink="/posts">Published Posts</a>
-            <a class="p-2 text-muted" routerLink="/posts/pending">Pending Review</a>
-            <a class="p-2 text-muted" routerLink="/drafts">Drafts</a>
-            <a class="p-2 text-muted" routerLink="/posts/new">New Post</a>
+            <a class="p-2 text-muted" routerLink="/posts/pending" *ngIf="user.role === Roles.Editor">Pending Review</a>
+            <ng-container *ngIf="user.role === Roles.Writer">
+                <a class="p-2 text-muted" routerLink="/drafts">Drafts</a>
+                <a class="p-2 text-muted" routerLink="/posts/new">New Post</a>
+            </ng-container>
         </nav>
     </ng-container>
     <router-outlet></router-outlet>
