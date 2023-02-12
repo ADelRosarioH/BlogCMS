@@ -1,9 +1,14 @@
+<div class="row mb-2 mt-2">
+    <h3 class="pb-4 mb-4 font-italic border-bottom">
+        Ready to start editing a post
+    </h3>
+</div>
 <app-post-editor [post]="post"></app-post-editor>
 <div class="row mt-5">
     <div class="col-12">
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-primary" (click)="save()">Save</button>
-            <button type="button" class="btn btn-danger">Submit</button>
+            <button type="button" class="btn btn-danger" (click)="submitToReview()">Submit To Review</button>
         </div>
     </div>
 </div>

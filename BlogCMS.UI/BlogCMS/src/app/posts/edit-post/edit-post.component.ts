@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs';
 import { CreateOrUpdatePost, Post, PostService } from 'src/app/services/post.service';
 
@@ -11,7 +12,10 @@ import { CreateOrUpdatePost, Post, PostService } from 'src/app/services/post.ser
 export class EditPostComponent {
   post?: Post;
   
-  constructor(private route: ActivatedRoute, private postService: PostService) {
+  constructor(private route: ActivatedRoute, 
+    private postService: PostService,
+    private router: Router,
+    private toastrService: ToastrService) {
        
   }
 
@@ -32,5 +36,14 @@ export class EditPostComponent {
       title: this.post!.title,
       content: this.post!.content
     }).subscribe();
+  }
+
+  submitToReview() {
+    const postId = this.post?.id as string;
+    this.postService.submit(postId)
+    .subscribe(() => {
+      this.toastrService.success("Post was sent to review!");
+      this.router.navigate(['drafts']);
+    });
   }
 }
