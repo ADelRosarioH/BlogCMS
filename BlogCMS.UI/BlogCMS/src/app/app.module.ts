@@ -21,6 +21,7 @@ import { PostFeedbackComponent } from './posts/post-feedback/post-feedback.compo
 import { MarkdownModule } from 'ngx-markdown';
 import { AngularMarkdownEditorModule } from 'angular-markdown-editor';
 import { EditPostComponent } from './posts/edit-post/edit-post.component';
+import { PendingListComponent } from './posts/pending-list/pending-list.component';
 
 const AuthInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
@@ -39,7 +40,8 @@ const AuthInterceptorProvider = {
     DraftListComponent,
     PostEditorComponent,
     PostFeedbackComponent,
-    EditPostComponent
+    EditPostComponent,
+    PendingListComponent
   ],
   imports: [
     BrowserModule,
