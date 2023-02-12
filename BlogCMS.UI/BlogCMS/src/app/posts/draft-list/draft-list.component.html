@@ -17,7 +17,8 @@
                                 {{post.content.substring(0, 55)}} ...
                             </markdown>
                         </p>
-                        <a *ngIf="![PostStatus.Approved, PostStatus.Pending].includes(post.status)" class="stretched-link" [routerLink]="['/posts', post.id, 'edit']">Edit</a>
+                        <a *ngIf="![PostStatus.Approved, PostStatus.Pending].includes(post.status)" [routerLink]="['/posts', post.id, 'edit']">Edit</a>
+                        <a [routerLink]="['/posts', post.id]">Continue reading</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                     </div>

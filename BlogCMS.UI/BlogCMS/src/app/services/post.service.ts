@@ -85,6 +85,8 @@ export class NewComment {
 
 export class Feedback {
   comment: string = "";
+  createdBy: string = "";
+  createdAt: string = "";
 }
 
 export enum PostStatus {

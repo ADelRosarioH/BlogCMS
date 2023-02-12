@@ -1,1 +1,42 @@
-<p>post-feedback works!</p>
+<ng-container *ngIf="user | async as currentUser">
+    <ng-container *ngIf="currentUser.role === Roles.Editor || post.createdBy === currentUser.userName">
+        <div class="row" *ngIf="post && post.feedbacks?.length">
+            <div class="col-12">
+                <h2>Feedbacks</h2>
+                <ng-container *ngFor="let feedback of post.feedbacks">
+                    <div class="card mt-2">
+                        <div class="card-body">
+                          <p class="card-text">
+                            <markdown>
+                                {{feedback.comment}} 
+                            </markdown>
+                          </p>
+                          <p>by {{feedback.createdBy}} at  {{feedback.createdAt}}</p>
+                        </div>
+                      </div>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="currentUser.role === Roles.Editor && post.status === PostStatus.Pending">
+        <div class="row">
+            <div class="col-12">
+                <label for="title" class="form-label fs-2">New Feedback</label>
+                <angular-markdown-editor
+                    textareaId="feedbackEditor" 
+                    name="post-feedback" 
+                    [options]="editorOptions"
+                    [(ngModel)]="newFeedback">
+                </angular-markdown-editor>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-danger" (click)="reject()">Reject</button>
+                    <button type="button" class="btn btn-success" (click)="approve()">Approve</button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

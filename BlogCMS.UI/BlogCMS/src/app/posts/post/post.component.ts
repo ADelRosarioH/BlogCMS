@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
-import { Post, PostService } from 'src/app/services/post.service';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, switchMap } from 'rxjs';
+import { AuthService, User, Roles } from 'src/app/services/auth.service';
+import { Post, PostService, PostStatus } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -10,9 +12,9 @@ import { Post, PostService } from 'src/app/services/post.service';
 })
 export class PostComponent implements OnInit {
   post?: Post;
-  
-  constructor(private route: ActivatedRoute, private postService: PostService) {
-       
+
+  constructor(private route: ActivatedRoute, 
+    private postService: PostService) {
   }
 
   ngOnInit(): void {
@@ -24,6 +26,10 @@ export class PostComponent implements OnInit {
       .subscribe((post: Post) => {
         this.post = post;
       });
+  }
+
+  addNewFeedback() {
+    
   }
 
 
