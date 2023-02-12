@@ -1,18 +1,20 @@
-<div class="row">
-    <div class="col-12">
-        <h2 class="blog-post-title">{{post?.title}}</h2>
-        <p class="blog-post-meta">{{post?.createdAt}} by <span class="text-muted">{{post?.createdBy}}</span></p>        
+<ng-container *ngIf="post">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="blog-post-title">{{post.title}}</h2>
+            <p class="blog-post-meta">{{post.createdAt}} by <span class="text-muted">{{post.createdBy}}</span></p>        
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <markdown>
-            {{post?.content}}
-        </markdown>
+    <div class="row">
+        <div class="col-12">
+            <markdown>
+                {{post.content}}
+            </markdown>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <a routerLink="/posts">Go back</a>
+    <div class="row">
+        <div class="col-12">
+            <a routerLink="/posts">Go back</a>
+        </div>
     </div>
-</div>
+</ng-container>
