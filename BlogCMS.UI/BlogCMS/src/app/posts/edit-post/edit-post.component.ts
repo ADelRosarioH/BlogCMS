@@ -35,7 +35,9 @@ export class EditPostComponent {
     this.postService.update(postId, {
       title: this.post!.title,
       content: this.post!.content
-    }).subscribe();
+    }).subscribe(() => {
+      this.toastrService.success("Post saved.");
+    });
   }
 
   submitToReview() {
