@@ -14,4 +14,5 @@ public class PostViewModel
     public DateTime? UpdatedAt { get; set; }
 
     public ICollection<PostCommentViewModel> Comments { get; set; }
+    public ICollection<PostFeedbackViewModel> Feedbacks { get; set; }
 }

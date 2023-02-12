@@ -30,7 +30,7 @@ public class PostsController : BaseController
     }
     
     [HttpGet("")]
-    public async Task<ActionResult<ICollection<OwnPostViewModel>>> GetCurrentUserPosts()
+    public async Task<ActionResult<ICollection<PostViewModel>>> GetCurrentUserPosts()
     {
         var posts = await _postService.GetCurrentUserPosts();
         return Ok(posts);

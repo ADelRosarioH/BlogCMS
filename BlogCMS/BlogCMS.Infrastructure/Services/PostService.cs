@@ -1,6 +1,8 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BlogCMS.Infrastructure.Context;
 using BlogCMS.Infrastructure.Entities;
+using BlogCMS.Infrastructure.Helpers.Constants;
 using BlogCMS.Infrastructure.Interfaces;
 using BlogCMS.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,34 +24,49 @@ public class PostService : IPostService
     
     public async Task<ICollection<PostViewModel>> GetApprovedPosts()
     {
-        var approvedPosts = _context.Posts.Where(p => p.Status == PostStatus.Approved);
-        return await _mapper
-            .ProjectTo<PostViewModel>(approvedPosts)
-            .ToListAsync();
+        var query = GetBaseGetPostsQuery()
+            .Where(p => p.Status == PostStatus.Approved);
+        
+        return _mapper.Map<ICollection<PostViewModel>>(await query.ToListAsync());
     }
 
     public async Task<PostViewModel> GetPostById(Guid postId)
     {
-        var query = _context.Posts.Where(p => p.Id == postId);
-        return await _mapper
-            .ProjectTo<PostViewModel>(query)
-            .FirstOrDefaultAsync();
+        var post = await GetBaseGetPostsQuery()
+            .FirstOrDefaultAsync(p => p.Id == postId);
+        
+        return _mapper.Map<PostViewModel>(post);
     }
 
-    public async Task<ICollection<OwnPostViewModel>> GetCurrentUserPosts()
+    public async Task<ICollection<PostViewModel>> GetCurrentUserPosts()
     {
         var userId = _currentUserService.CurrentUserId;
-        var query = _context.Posts.Where(p => p.CreatedByUserId == userId)
+        var query = GetBaseGetPostsQuery().Where(p => p.CreatedByUserId == userId)
             .OrderByDescending(p => p.CreatedAt);
-        return await _mapper.ProjectTo<OwnPostViewModel>(query)
-            .ToListAsync();
+
+        return _mapper.Map<ICollection<PostViewModel>>(await query.ToListAsync());
     }
 
     public async Task<ICollection<PostViewModel>> GetPostsByStatus(PostStatus status)
     {
-        var query = _context.Posts.Where(p => p.Status == status);
-        return await _mapper.ProjectTo<PostViewModel>(query)
-            .ToListAsync();
+        var query = GetBaseGetPostsQuery()
+            .Where(p => p.Status == status);
+
+        return _mapper.Map<ICollection<PostViewModel>>(await query.ToListAsync());
+    }
+
+    private IQueryable<Post> GetBaseGetPostsQuery()
+    {
+        var currentUserId = _currentUserService.CurrentUserId;
+        var userIsEditor = _currentUserService.IsInRole(Roles.Editor).Result;
+
+        var query = _context.Posts
+            .Include(p => p.CreatedByUser)
+            .Include(p => p.Comments)
+            .Include(p => p.Feedbacks.Where(f => f.Post.CreatedByUserId == currentUserId || userIsEditor))
+            .AsQueryable();
+
+        return query;
     }
 
     public async Task<PostViewModel> CreateNewPost(NewPostViewModel model)

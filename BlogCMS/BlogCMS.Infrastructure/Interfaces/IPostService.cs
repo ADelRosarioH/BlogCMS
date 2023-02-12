@@ -7,7 +7,7 @@ public interface IPostService
 {
     Task<ICollection<PostViewModel>> GetApprovedPosts();
     Task<PostViewModel> GetPostById(Guid postId);
-    Task<ICollection<OwnPostViewModel>> GetCurrentUserPosts();
+    Task<ICollection<PostViewModel>> GetCurrentUserPosts();
     Task<ICollection<PostViewModel>> GetPostsByStatus(PostStatus status);
     Task<PostViewModel> CreateNewPost(NewPostViewModel model);
     Task<PostViewModel> UpdatePost(Guid postId, UpdatePostViewModel model);

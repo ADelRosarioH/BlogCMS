@@ -50,4 +50,9 @@ public class CurrentUserService : ICurrentUserService
         _httpContext = httpContext;
         _userManager = userManager;
     }
+
+    public async Task<bool> IsInRole(string role)
+    {
+        return await _userManager.IsInRoleAsync(CurrentUser, role);
+    }
 }
