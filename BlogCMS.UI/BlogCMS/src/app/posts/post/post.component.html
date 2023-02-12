@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <h2 class="blog-post-title">{{post.title}}</h2>
-            <p class="blog-post-meta">{{post.createdAt}} by <span class="text-muted">{{post.createdBy}}</span></p>        
+            <p class="blog-post-meta">by <span class="text-muted">{{post.createdBy}}</span> at {{post.createdAt}}</p>        
         </div>
     </div>
     <div class="row">
@@ -13,6 +13,7 @@
         </div>
     </div>
     <app-post-feedback [post]="post"></app-post-feedback>
+    <app-post-comment [post]="post"></app-post-comment>
     <div class="row">
         <div class="col-12">
             <a routerLink="/posts">Go back</a>
