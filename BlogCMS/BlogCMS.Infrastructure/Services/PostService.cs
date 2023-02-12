@@ -39,7 +39,8 @@ public class PostService : IPostService
     public async Task<ICollection<OwnPostViewModel>> GetCurrentUserPosts()
     {
         var userId = _currentUserService.CurrentUserId;
-        var query = _context.Posts.Where(p => p.CreatedByUserId == userId);
+        var query = _context.Posts.Where(p => p.CreatedByUserId == userId)
+            .OrderByDescending(p => p.CreatedAt);
         return await _mapper.ProjectTo<OwnPostViewModel>(query)
             .ToListAsync();
     }
