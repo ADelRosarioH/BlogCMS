@@ -1,0 +1,37 @@
+<ng-container *ngIf="post && post.status === PostStatus.Approved">
+    <div class="row" *ngIf="post && post.comments?.length">
+        <div class="col-12">
+            <h2>Comments</h2>
+            <ng-container *ngFor="let comment of post.comments">
+                <div class="card mt-2">
+                    <div class="card-body">
+                      <p class="card-text">
+                        <markdown>
+                            {{comment.content}} 
+                        </markdown>
+                      </p>
+                      <p>by {{comment.createdBy}} at  {{comment.createdAt}}</p>
+                    </div>
+                  </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label for="title" class="form-label fs-2">New comment</label>
+            <angular-markdown-editor
+                textareaId="commentEditor" 
+                name="post-comment" 
+                [options]="editorOptions"
+                [(ngModel)]="newComment">
+            </angular-markdown-editor>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" (click)="save()">Comment</button>
+            </div>
+        </div>
+    </div>
+</ng-container>

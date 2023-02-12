@@ -50,7 +50,7 @@ export class PostService {
 
 
   comment(postId: string, content: string): Observable<Comment> {
-    return this.http.post<Comment>(`${environment.apiUrl}/posts/${postId}/comments`, {
+    return this.http.post<Comment>(`${environment.apiUrl}/posts/${postId}/comment`, {
       content
     });
   }

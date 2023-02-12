@@ -22,6 +22,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { AngularMarkdownEditorModule } from 'angular-markdown-editor';
 import { EditPostComponent } from './posts/edit-post/edit-post.component';
 import { PendingListComponent } from './posts/pending-list/pending-list.component';
+import { PostCommentComponent } from './posts/post-comment/post-comment.component';
 
 const AuthInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
@@ -41,7 +42,8 @@ const AuthInterceptorProvider = {
     PostEditorComponent,
     PostFeedbackComponent,
     EditPostComponent,
-    PendingListComponent
+    PendingListComponent,
+    PostCommentComponent
   ],
   imports: [
     BrowserModule,
