@@ -2,13 +2,14 @@
 
 ## Information:
 Name: Anthony Del Rosario
+
 Email: adelrosarioh@gmail.com 
 
 # Table of Contents
 - [BlogCMS](#blogcms)
 	- [Information:](#information)
 - [Table of Contents](#table-of-contents)
-- [Installation instructions](#installation-instructions)
+- [Installation](#installation)
 - [How to Use](#how-to-use)
 	- [Management Tools](#management-tools)
 	- [Shutting down app](#shutting-down-app)
