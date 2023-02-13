@@ -10,24 +10,24 @@ Email: adelrosarioh@gmail.com
 - [Table of Contents](#table-of-contents)
 - [Installation instructions](#installation-instructions)
 - [How to Use](#how-to-use)
-		- [Management Tools](#management-tools)
-		- [Shutting down app](#shutting-down-app)
+	- [Management Tools](#management-tools)
+	- [Shutting down app](#shutting-down-app)
 - [Technologies used](#technologies-used)
-		- [Back-End](#back-end)
-		- [Front-End](#front-end)
-		- [Libraries](#libraries)
+	- [Back-End](#back-end)
+	- [Front-End](#front-end)
+	- [Libraries](#libraries)
 - [Project Architecture](#project-architecture)
-		- [Overview](#overview)
+	- [Overview](#overview)
 - [Requirements](#requirements)
 - [Bonuses](#bonuses)
 - [Development](#development)
-		- [Design Rules](#design-rules)
-		- [Runtime and SDKs](#runtime-and-sdks)
-		- [Dependencies](#dependencies)
-		- [Front-End - WebApp](#front-end---webapp)
-		- [Back-End - WebAPI](#back-end---webapi)
+	- [Design Rules](#design-rules)
+	- [Runtime and SDKs](#runtime-and-sdks)
+	- [Dependencies](#dependencies)
+	- [Front-End - WebApp](#front-end---webapp)
+	- [Back-End - WebAPI](#back-end---webapi)
 
-# Installation instructions
+# Installation
 
 1. Install Docker (you can download docker from [here](https://docs.docker.com/get-docker/))
 2. Download zip or clone this repository using git (you can download git from [here](https://git-scm.com/))
@@ -79,8 +79,8 @@ Make sure you are using one of the following supported browsers:
 - Edge 		latest
 
 ### Management Tools 
-To connect to MSSQL Server 2017 using SQL Management Studio or other tool use the following connection parameters:
-- **Server**: localhost,1433
+To connect to MSSQL Server using SQL Management Studio or other tool use the following connection parameters:
+- **Server**: localhost,1433 or localhost,14331 if ran with the docker command specified below at the dependencies section
 - **User**: SA
 - **Password**: Password123*
 
