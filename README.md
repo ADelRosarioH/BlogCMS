@@ -5,6 +5,8 @@ Name: Anthony Del Rosario
 
 Email: adelrosarioh@gmail.com 
 
+Project commit history shows dates from Feb 7 to Feb 13, about 7 days, working from 2 to 6 uncontinuos hours between them. I would say it took close to 30 hours to get this project to the state it is, which is functional, but can be improved in a lot of areas.
+
 # Table of Contents
 - [BlogCMS](#blogcms)
 	- [Information:](#information)
