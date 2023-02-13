@@ -5,212 +5,218 @@ Name: Anthony Del Rosario
 Email: adelrosarioh@gmail.com 
 
 # Table of Contents
-1. [Installation instructions](#installation-instructions)
-2. [How to Use](#how-to-use)
-	* [Management Tools](#management-tools)
-	* [Shutting down app](#shutting-down-app)
-3. [Technologies used](#technologies-used)
-	* [Back-End](#back-end)
-	* [Front-End](#front-end)
-	* [Libraries](#libraries)
-4. [Project Architecture](#project-architecture)
-	* [Overview](#overview)
-	* [Web API - RESTful Endpoints](#web-api---restful-endpoints)
-	* [Web API - WebSockets Endpoints](#web-api---websockets-endpoints)
-5. [Requirements](#requirements)
-6. [Requirements](#bonuses)
-7. [Development](#development)
-	* [Runtime and SDKs](#runtime-and-sdks)
-	* [Dependencies](#dependencies)
-	* [Front-End - WebApp](#front-end---webapp)
-	* [Back-End - WebAPI](#back-end---webapi)
-	* [Back-End - StocksBot](#back-end---stocksbot)
+- [BlogCMS](#blogcms)
+	- [Information:](#information)
+- [Table of Contents](#table-of-contents)
+- [Installation instructions](#installation-instructions)
+- [How to Use](#how-to-use)
+		- [Management Tools](#management-tools)
+		- [Shutting down app](#shutting-down-app)
+- [Technologies used](#technologies-used)
+		- [Back-End](#back-end)
+		- [Front-End](#front-end)
+		- [Libraries](#libraries)
+- [Project Architecture](#project-architecture)
+		- [Overview](#overview)
+- [Requirements](#requirements)
+- [Bonuses](#bonuses)
+- [Development](#development)
+		- [Design Rules](#design-rules)
+		- [Runtime and SDKs](#runtime-and-sdks)
+		- [Dependencies](#dependencies)
+		- [Front-End - WebApp](#front-end---webapp)
+		- [Back-End - WebAPI](#back-end---webapi)
 
 # Installation instructions
 
-- Download zip or clone this repository using git
-- Install Docker (you can download docker from [here](https://docs.docker.com/get-docker/))
-- Open repository folder into terminal
-- Execute the following command `docker-compose up -d` to start the services in detached mode 
-- or execute `docker-compose up` to see the logs
+1. Install Docker (you can download docker from [here](https://docs.docker.com/get-docker/))
+2. Download zip or clone this repository using git (you can download git from [here](https://git-scm.com/))
+3. Open repository folder into terminal
+4. Execute the `setup.sh` for creating an https certificate needed for the API 
 
-The installation process should take about 15 minutes depending on your internet connection and computer specs.
+```
+> sh setup.sh
+```
+or if you are on windows
+```sh
+C:\> setup.cmd
+```
+
+5. Execute `docker-compose up -d` to start the services in detached mode 
+	- or execute `docker-compose up` to see the logs
+
+The installation process should take about 5 minutes depending on your internet connection and computer specs.
 
 # How to Use
 
-Click [here](http://localhost:8081) to go into the webapp. You can register a new account in [here](http://localhost:8081/register)
-or login [here](http://localhost:8081/login) if you already have one.
+The BlogCMS UI is deployed in Azure and can be accessed using the following URL
+- https://wonderful-plant-0202f4110.2.azurestaticapps.net
+  
+and the API is deployed at 
+- https://adelrosarioh-blog-cms-zemoga.azurewebsites.net
+
+You can use one of the following users or create your own:
+- Public:
+  - username: public_user
+  - password: Test123*
+
+- Writer:
+  - username: writer_user
+  - password: Test123*
+
+- Editor:
+  - username: editor_user
+  - password: Test123*
+
+This repo also includes a Postman collection with tests. You can download and install Postman from [here](https://www.postman.com/downloads/).
 
 You can have multiple user sessions login in from a different browser window (not browser tab).
 
 Make sure you are using one of the following supported browsers:
 - Chrome 	latest
+- Safari 	latest
 - Firefox 	latest and extended support release (ESR) 
-- Edge 	2 most recent major versions
-- IE 	11
+- Edge 		latest
 
 ### Management Tools 
 To connect to MSSQL Server 2017 using SQL Management Studio or other tool use the following connection parameters:
 - **Server**: localhost,1433
 - **User**: SA
-- **Password**: P455w0rd123456789
-
-To connect to RabbitMQ Management go to http://localhost:15672/ in your browser and login with the following credentials:
-- **Username**: guest
-- **Password**: guest
+- **Password**: Password123*
 
 ### Shutting down app
-You can shutdown all services at once executing `docker-compose down` in your terminal.
+You can shutdown all services at once executing `docker-compose down` or `Ctrl + C` in your terminal.
 
 # Technologies used
 
 ### Back-End
 
-- .NET Core 3.1
-- ASP.NET Core 3.1
-- RabbitMQ
-- MSSQL Server 2017
+- .NET 6
+- ASP.NET Core 6 Minimal API
+- NodeJS v19.4.0
+- MSSQL Server 2019
 - NGINX
 - Docker
 
 ### Front-End
 
-- Angular 10
+- Angular 15
 
 ### Libraries
 
-- Bootstrap 4
-- MomentJS
-- ASP.NET Core SignalR
-- RabbitMQ .NET Client
+- Bootstrap 5
+- ngx-markdown
 - Entity Framework Core
-- TinyCsvParser
+- xUnit
+- Moq
+- FluentAssertions
+- AutoMapper
 
 # Project Architecture
 
-The project is separated in three application binaries. The FrontEnd web application developed using the Angular Framework,
-The BackEnd ASP.NET Core RESTful API Web API and a .NET Core Console application.
+The project is separated in two application packages. The FrontEnd web application developed using the Angular Framework and The BackEnd ASP.NET Core RESTful API Web API.
 
 The BackEnd solution structure is divided into the following projects:
-- **Core**: defines business entities and interfaces.
-- **Infrastructure**: implements service interfaces and handles data storage and message queuing.
-- **ASP.NET Core WebAPI**: fulfil frontend requests like, login, register and chat, also keeps listening for incoming stock share price responses from the queue.
-- **StockBot Console app**: keeps listening for incoming stock share price requests from queue, requests stock share price from http://stooq.com and 
-pushes a message into the stock share price response queue with the parsed data.
-
-The WebAPI has RESTful endpoints for account authentication, account registration and getting the last messages and implements 
-WebSocket endpoints to handle real-time chat features using ASP.NET Core SignalR.
+- **BlogCMS.Infrastructure**: includes database entities configuraiton, interfaces, constants, helpers, and services that support the business logic.
+- **BlogCMS.WebAPI**: fulfill frontend requests like user signup, signin, post listing and creation, reviews and comments.
 
 The FrontEnd web application is dockerized and served by NGINX which is also used as a reverse proxy, forwarding requests to the Web API.
 
 ### Overview
-![Image of Yaktocat](/chat_challenge_architecture_diagram_overview.png)
 
-### Web API - RESTful Endpoints
-| HTTP Method 	| URI Path           	| Request Headers                                                  	| Request Body                              	| Description                                              	| Response Body                                            	|
-|-------------	|--------------------	|------------------------------------------------------------------	|-------------------------------------------	|----------------------------------------------------------	|----------------------------------------------------------	|
-| GET         	| /api/messages      	| Authorization Bearer {{ jwt }}<br>Content-Type: application/json 	|                                           	| Returns the last 50 messages ordered by timestamp        	| [{id: '', userName: '', message: '', createdAt: ''}]     	|
-| POST        	| /api/auth/register 	| Content-Type: application/json                                   	| { userName: '', email: '', password: '' } 	| Register a new user account                              	| [{ message: '', errors: [{ code: '', description: ''}]}] 	|
-| POST        	| /api/auth/login    	| Content-Type: application/json                                   	| { userName: '', password: '' }            	| Authenticate user credentials and return an access token 	| [{ message: '', errors: [{ code: '', description: ''}]]  	|
-
-### Web API - WebSockets Endpoints
-| URI Path   	| Command        	| Arguments                                    	| Query String Parameters 	| Description                          	|
-|------------	|----------------	|----------------------------------------------	|-------------------------	|--------------------------------------	|
-| /hubs/chat 	| SendMessage    	| { userName: '', message: '' }                	| access_token={{ jwt }}  	| Sends message to WebAPI server       	|
-| /hubs/chat 	| ReceiveMessage 	| { userName: '', message: '', createdAt: '' } 	| access_token={{ jwt }}  	| Receives messages from WebAPI server 	|
+Build a minimal Blog Engine / CMS backend API, that allows to create, edit and publish text-
+based posts, with an approval flow where two different user types may interact.
 
 # Requirements
 
-- [x] Allow registered users to log in and talk with other users in a chatroom.
-    - Users can register a new account and log in into the chatroom.
+- [x] Build a RESTful API for a blog engine using .NET.
+The API should use some authentication mechanism to identify valid users and authorize actions
+based on the user’s role.
+ - The roles for the application are: “Public”, “Writer” and “Editor”.
 
-- [x] Allow users to post messages as commands into the chatroom with the following format
-/stock=stock_code
-    - the /stock command is handled asynchronously, if the app doesn't understand the command a message is displayed.
-
-- [x] Create a decoupled bot that will call an API using the stock_code as a parameter
-(https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcv&h&e=csv, here aapl.us is the
-stock_code)
-
-- [x] The bot should parse the received CSV file and then it should send a message back into
-the chatroom using a message broker like RabbitMQ. The message will be a stock quote
-using the following format: “APPL.US quote is $93.42 per share”. The post owner will be
-the bot.
-
-    - A decoupled NET Core app is consuming from the request queue, calling the stooq web service, parsing CSV response and then pushing that stock information into the queue for any client consumer to do something with it.
-
-- [x] Have the chat messages ordered by their timestamps and show only the last 50
-messages.
-    - After login and page is refreshed the chatroom displays the last 50 messages ordered by their timestamps.
-
-- [x] Unit test the functionality you prefer.
-    - Unit Tests were done using NUnit and Moq. Tests are located in the `BackEnd/JobsityStocksChat/JobsityStocksChat.UnitTests` project.
+- [x] Retrieve a list of all published posts (all roles)
+- [x] Add comments to a published post (all roles)
+- [x] Get own posts, create and edit posts (Writer)
+  - [x] Writers should be able to create new posts and retrieve the posts they have
+written.
+  - [x] Writers should be able to edit existing posts that haven't been published or
+submitted.
+- [x] Submit posts (Writer)
+  - [x] When a Writer submits a post, the post should move to a “pending approval”
+status where it’s locked and cannot be updated.
+- [x] Get, Approve or Reject pending posts (Editor)
+  - [x] Editors should be able to query for “pending” posts and approve or reject their
+publishing. Once an Editor approves a post, it will be published and visible to all
+roles. If the post is rejected, it will be unlocked and editable again by Writers.
+ - [x] Editor should be able to include a comment when rejecting a post, and this
+comment should be visible to the Writer only.
+- [x] Each post must include a title, some text content, the date of publishing and its author.
 
 # Bonuses
 
-- [x] Use .NET identity for users authentication
-    - User register and login provided by .NET Core Identity.
-
-- [x] Handle messages that are not understood or any exceptions raised within the bot.
-    - If the bot didn't find a stock by its stock code it would say "I'm sorry, I couldn't find the stock you asked for.".
-
-- [x] Build an installer.
-    - The use of 'docker-compose` keeps the application setup simple and as closed to deploying the application to a production environment as possible.
+- [x] Build a UI web application to interact with the API. The UI should, as a minimum, display a list
+of all published posts, and the full contents (including comments) of any particular post when
+selected.
+- [x] Postman collections OR curl commands to test the API operations.
+- [x] Swagger definition for the API.
+- [x] Relevant Unit Tests covering the business logic in the API.
+- [x] If you have experience and access to Cloud Platforms, deploy the solution to it so it can
+be tested without local install. You can deploy to Azure/AWS/GCP, etc.
+	- Deployed to Azure using Github Actions.
+      - app: https://wonderful-plant-0202f4110.2.azurestaticapps.net
+      - api: https://adelrosarioh-blog-cms-zemoga.azurewebsites.net
 
 # Development 
+
+### Design Rules
+- [x] You can use the API framework of your choice (ASP.NET, Serverless Functions,
+ServiceStack, etc.)
+	- API was build using .NET 6 and ASP.NET Core WebAPI.
+- [x] You can use the Storage solution of your choice (SQL database with EF or other ORM,
+NoSQL data stores, flat files, etc.)
+	- MSSQL with Entity Framework Core was used as storage solution.
+- [x] You must use a Dependency Injection/IoC container of your choice.
+  - The Dependency Injection/IoC container used was the default provided by .NET framework.
+- [x] Login storage can be as simple as hardcoded users/passwords, but the api must use an
+authentication mechanism to secure its operations.
+  - For user management ASP.NET Identity Core was used.
+- [x] All requests and responses must be in JSON format.
 
 ### Runtime and SDKs
 
 - Download and install Docker (https://docs.docker.com/get-docker/)
-- Download and install .NET Core 3.1 SDK (https://dotnet.microsoft.com/download)
+- Download and install .NET 6 SDK (https://dotnet.microsoft.com/download)
 - Download and install NodeJS (https://nodejs.org/en/download/)
 
 ### Dependencies
-- Start MSSQL Server 2017 docker container:
-	````
-	docker run -d --hostname mssqldb --name mssqldb_dev -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P455w0rd123456789" -p 1433:1433 mcr.microsoft.com/mssql/server:2017-CU21-ubuntu-16.04
-	````
-
-- Start RabbitMQ docker container:
-	````
-	docker run -d --hostname rabbitmq --name rabbitmq_dev -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-	````
+- Start MSSQL Server docker container:
+	```sh
+	docker run -d --hostname mssqldb --name mssqldb_dev -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Password123*" -p 14331:1433 mcr.microsoft.com/mssql/server
+	```
 
 ### Front-End - WebApp
-- Open this repository folder in the terminal and change directory to `FrontEnd/JobsityStocksChat`
+- Open this repository folder in the terminal and change directory to `BlogCMS.UI/BlogCMS`
 - Install project dependencies by running command:
-	````
+	```sh
 	npm install
-	````
+	```
 
 - Start development server by running command:
-	````
+	```sh
 	ng serve
-	````
+	```
 
 - Go to http://localhost:4200/
 
 ### Back-End - WebAPI
-- Open this repository folder in the terminal and change directory to `BackEnd/JobsityStocksChat/JobsityStocksChat.WebAPI`
+- Open this repository folder in the terminal and change directory to `BlogCMS/BlogCMS.WebAPI`
 - Install project dependencies by running command:
-	````
-	dotnet restore "JobsityStocksChat.WebAPI.csproj"
-	````
+	```sh
+	dotnet restore "BlogCMS.WebAPI.csproj"
+	```
 
 - Start project by running command:
-	````
-	dotnet run --launch-profile "JobsityStocksChat.WebAPI"
-	````
-- Web API server is running on http://localhost:5000
-
-### Back-End - StocksBot
-- Open this repository folder in the terminal and change directory to `BackEnd/JobsityStocksChat/JobsityStocksChat.StocksBot`
-- Install project dependencies by running command:
-	````
-	dotnet restore "JobsityStocksChat.StocksBot.csproj"
-	````
-
-- Start project by running command:
-	````
-	dotnet run --launch-profile "JobsityStocksChat.StocksBot"
-	````
+	```sh
+	dotnet run 
+	```
+- Web API server is running on http://localhost:7173
